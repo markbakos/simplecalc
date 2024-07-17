@@ -19,7 +19,7 @@ namespace simplecalc
 
         float currentNumber = 0;
         string curNumStr = "";
-        int firstNum = 0;
+        float firstNum = 0;
 
         bool isAdd = false;
         bool isSub = false;
@@ -44,7 +44,7 @@ namespace simplecalc
             else if (curNumStr.Length < 9)
             {
                 curNumStr = curNumStr + "0";
-                currentNumber = Int64.Parse(curNumStr);
+                currentNumber = float.Parse(curNumStr);
                 mainNumber.Text = curNumStr;
             }
         }
@@ -58,9 +58,9 @@ namespace simplecalc
                 curNumStr = curNumStr + "1";
                 mainNumber.Text = currentNumber.ToString();
             }
-            else if(curNumStr.Length < 9) {
+            else if (curNumStr.Length < 9) {
                 curNumStr = curNumStr + "1";
-                currentNumber = Int64.Parse(curNumStr);
+                currentNumber = float.Parse(curNumStr);
                 mainNumber.Text = curNumStr;
             }
         }
@@ -77,7 +77,7 @@ namespace simplecalc
             else if (curNumStr.Length < 9)
             {
                 curNumStr = curNumStr + "2";
-                currentNumber = Int64.Parse(curNumStr);
+                currentNumber = float.Parse(curNumStr);
                 mainNumber.Text = curNumStr;
             }
         }
@@ -94,7 +94,7 @@ namespace simplecalc
             else if (curNumStr.Length < 9)
             {
                 curNumStr = curNumStr + "3";
-                currentNumber = Int64.Parse(curNumStr);
+                currentNumber = float.Parse(curNumStr);
                 mainNumber.Text = curNumStr;
             }
         }
@@ -111,7 +111,7 @@ namespace simplecalc
             else if (curNumStr.Length < 9)
             {
                 curNumStr = curNumStr + "4";
-                currentNumber = Int64.Parse(curNumStr);
+                currentNumber = float.Parse(curNumStr);
                 mainNumber.Text = curNumStr;
             }
         }
@@ -128,7 +128,7 @@ namespace simplecalc
             else if (curNumStr.Length < 9)
             {
                 curNumStr = curNumStr + "5";
-                currentNumber = Int64.Parse(curNumStr);
+                currentNumber = float.Parse(curNumStr);
                 mainNumber.Text = curNumStr;
             }
         }
@@ -145,7 +145,7 @@ namespace simplecalc
             else if (curNumStr.Length < 9)
             {
                 curNumStr = curNumStr + "6";
-                currentNumber = Int64.Parse(curNumStr);
+                currentNumber = float.Parse(curNumStr);
                 mainNumber.Text = curNumStr;
             }
         }
@@ -162,7 +162,7 @@ namespace simplecalc
             else if (curNumStr.Length < 9)
             {
                 curNumStr = curNumStr + "7";
-                currentNumber = Int64.Parse(curNumStr);
+                currentNumber = float.Parse(curNumStr);
                 mainNumber.Text = curNumStr;
             }
         }
@@ -179,7 +179,7 @@ namespace simplecalc
             else if (curNumStr.Length < 9)
             {
                 curNumStr = curNumStr + "8";
-                currentNumber = Int64.Parse(curNumStr);
+                currentNumber = float.Parse(curNumStr);
                 mainNumber.Text = curNumStr;
             }
         }
@@ -196,7 +196,7 @@ namespace simplecalc
             else if (curNumStr.Length < 9)
             {
                 curNumStr = curNumStr + "9";
-                currentNumber = Int64.Parse(curNumStr);
+                currentNumber = float.Parse(curNumStr);
                 mainNumber.Text = curNumStr;
             }
         }
@@ -204,46 +204,65 @@ namespace simplecalc
         //Button +
         private void button17_Click(object sender, EventArgs e)
         {
-            firstNum = Int32.Parse(curNumStr);
+            isAdd = true;
+            isDiv = false;
+            isSub = false;
+            isMul = false;
+
+            firstNum = float.Parse(curNumStr);
             label1.Text = firstNum.ToString() + " + ";
             curNumStr = "";
             currentNumber = 0;
             mainNumber.Text = "0";
-            isAdd = true;
+
 
         }
 
         //Button -
         private void button13_Click(object sender, EventArgs e)
         {
-            firstNum = Int32.Parse(curNumStr);
+            isSub = true;
+            isAdd = false;
+            isDiv = false;
+            isMul = false;
+
+            firstNum = float.Parse(curNumStr);
             label1.Text = firstNum.ToString() + " - ";
             curNumStr = "";
             currentNumber = 0;
             mainNumber.Text = "0";
-            isSub = true;
+
         }
 
         //Button *
         private void button9_Click(object sender, EventArgs e)
         {
-            firstNum = Int32.Parse(curNumStr);
+            isMul = true;
+            isAdd = false;
+            isDiv = false;
+            isSub = false;
+
+            firstNum = float.Parse(curNumStr);
             label1.Text = firstNum.ToString() + " * ";
             curNumStr = "";
             currentNumber = 0;
             mainNumber.Text = "0";
-            isMul = true;
+
         }
 
         //Button /
         private void button5_Click(object sender, EventArgs e)
         {
-            firstNum = Int32.Parse(curNumStr);
+            isDiv = true;
+            isAdd = false;
+            isSub = false;
+            isMul = false;
+
+            firstNum = float.Parse(curNumStr);
             label1.Text = firstNum.ToString() + " / ";
             curNumStr = "";
             currentNumber = 0;
             mainNumber.Text = "0";
-            isDiv = true;
         }
 
         //Button =
@@ -252,23 +271,23 @@ namespace simplecalc
             if (isAdd)
             {
                 label1.Text = firstNum.ToString() + " + " + curNumStr + " =";
-                mainNumber.Text = (firstNum + Int32.Parse(curNumStr)).ToString();
+                mainNumber.Text = (firstNum + float.Parse(curNumStr)).ToString();
             }
             else if (isSub) {
                 label1.Text = firstNum.ToString() + " - " + curNumStr + " =";
-                mainNumber.Text = (firstNum - Int32.Parse(curNumStr)).ToString();
+                mainNumber.Text = (firstNum - float.Parse(curNumStr)).ToString();
             }
             else if (isDiv) {
                 label1.Text = firstNum.ToString() + " / " + curNumStr + " =";
-                mainNumber.Text = (firstNum / Int32.Parse(curNumStr)).ToString();
+                mainNumber.Text = (firstNum / float.Parse(curNumStr)).ToString();
             }
             else if (isMul) {
                 label1.Text = firstNum.ToString() + " * " + curNumStr + " =";
-                mainNumber.Text = (firstNum * Int32.Parse(curNumStr)).ToString();
+                mainNumber.Text = (firstNum * float.Parse(curNumStr)).ToString();
             }
 
 
-            
+
         }
 
         //Clear Entry
@@ -296,9 +315,9 @@ namespace simplecalc
         //Button +/-
         private void button24_Click(object sender, EventArgs e)
         {
-            if (Int32.Parse(curNumStr) > 0 || Int32.Parse(curNumStr) < 0)
+            if (float.Parse(curNumStr) > 0 || float.Parse(curNumStr) < 0)
             {
-                curNumStr = (Int32.Parse(curNumStr) * -1).ToString();
+                curNumStr = (float.Parse(curNumStr) * -1).ToString();
                 mainNumber.Text = curNumStr;
             }
         }
@@ -306,8 +325,89 @@ namespace simplecalc
         //Delete Last
         private void button4_Click(object sender, EventArgs e)
         {
-            curNumStr = curNumStr.Remove(curNumStr.Length - 1);
+            if (curNumStr.Length > 0) {
+                curNumStr = curNumStr.Remove(curNumStr.Length - 1);
+                mainNumber.Text = curNumStr;
+            }
+
+        }
+
+        //Decimal
+        private void button22_Click(object sender, EventArgs e)
+        {
+            curNumStr = curNumStr + ".";
             mainNumber.Text = curNumStr;
+        }
+
+        //1/x
+        private void button8_Click(object sender, EventArgs e)
+        {
+            label1.Text = "1 / (" + curNumStr + ") =";
+            curNumStr = (1/(float.Parse(curNumStr))).ToString();
+            mainNumber.Text = curNumStr;
+        }
+
+        //Square
+        private void button7_Click(object sender, EventArgs e)
+        {
+            label1.Text = "sqr( " + curNumStr + " ) =";
+            curNumStr = ( (float.Parse(curNumStr))*(float.Parse(curNumStr)) ).ToString();
+            mainNumber.Text = curNumStr;
+        }
+
+        //Square Root
+        private void button6_Click(object sender, EventArgs e)
+        {
+            label1.Text = "sqrt( " + curNumStr + " ) =";
+            if (float.Parse(curNumStr) > 0 || !(curNumStr == ""))
+            {
+                curNumStr = (Math.Sqrt(float.Parse(curNumStr))).ToString();
+                mainNumber.Text = curNumStr;
+            }
+
+            //gotta fix this, crash when 0
+            else if (curNumStr == "") {
+                mainNumber.Text = "0";
+            }
+            else
+            {
+                mainNumber.Text = "Invalid Input";
+            }
+            
+            
+        }
+
+        //Percentage
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (firstNum == 0)
+            {
+                mainNumber.Text = "0";
+                label1.Text = "0";
+            }
+            else
+            {
+                if (isDiv)
+                {
+                    curNumStr = ((float.Parse(curNumStr)) / 100).ToString();
+                    mainNumber.Text = curNumStr;
+                }
+                else if (isMul)
+                {
+                    curNumStr = ((float.Parse(curNumStr)) / 100).ToString();
+                    mainNumber.Text = curNumStr;
+                }
+
+                //no clue what formula needed
+                else if (isAdd) 
+                {
+                    curNumStr = (float.Parse(curNumStr) / 100*firstNum).ToString();
+                }
+                else if (isSub)
+                {
+
+                }
+            }
         }
     }
 }
