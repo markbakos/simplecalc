@@ -1,0 +1,13 @@
+C:\Users\-\Downloads\simplecalc-master\simplecalc\bin\Debug\simplecalc.exe.config
+C:\Users\-\Downloads\simplecalc-master\simplecalc\bin\Debug\simplecalc.exe
+C:\Users\-\Downloads\simplecalc-master\simplecalc\bin\Debug\simplecalc.pdb
+C:\Users\-\Downloads\simplecalc-master\simplecalc\obj\Debug\simplecalc.csproj.AssemblyReference.cache
+C:\Users\-\Downloads\simplecalc-master\simplecalc\obj\Debug\simplecalc.Form1.resources
+C:\Users\-\Downloads\simplecalc-master\simplecalc\obj\Debug\simplecalc.Properties.Resources.resources
+C:\Users\-\Downloads\simplecalc-master\simplecalc\obj\Debug\simplecalc.csproj.GenerateResource.cache
+C:\Users\-\Downloads\simplecalc-master\simplecalc\obj\Debug\simplecalc.csproj.CoreCompileInputs.cache
+C:\Users\-\Downloads\simplecalc-master\simplecalc\obj\Debug\simplecalc.exe
+C:\Users\-\Downloads\simplecalc-master\simplecalc\obj\Debug\simplecalc.pdb
+C:\Users\-\Downloads\simplecalc-master\simplecalc\bin\Debug\MySql.Data.dll
+C:\Users\-\Downloads\simplecalc-master\simplecalc\bin\Debug\MySql.Data.xml
+C:\Users\-\Downloads\simplecalc-master\simplecalc\obj\Debug\simplecalc.csproj.Up2Date
