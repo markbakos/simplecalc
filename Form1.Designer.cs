@@ -59,7 +59,13 @@
             this.recentList = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.memoryList = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.MemoryClear = new System.Windows.Forms.Button();
+            this.MemoryRecall = new System.Windows.Forms.Button();
+            this.MemoryAdd = new System.Windows.Forms.Button();
+            this.MemorySub = new System.Windows.Forms.Button();
+            this.MemorySave = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -127,7 +133,7 @@
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(75, 61);
             this.button6.TabIndex = 6;
-            this.button6.Text = "2Vx";
+            this.button6.Text = "√x";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
@@ -138,7 +144,7 @@
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(75, 61);
             this.button7.TabIndex = 5;
-            this.button7.Text = "x2";
+            this.button7.Text = "x²";
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
@@ -392,11 +398,23 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.memoryList);
             this.panel3.Controls.Add(this.label3);
             this.panel3.Location = new System.Drawing.Point(559, 18);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(189, 478);
             this.panel3.TabIndex = 29;
+            // 
+            // memoryList
+            // 
+            this.memoryList.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.memoryList.FormattingEnabled = true;
+            this.memoryList.ItemHeight = 20;
+            this.memoryList.Location = new System.Drawing.Point(12, 48);
+            this.memoryList.Name = "memoryList";
+            this.memoryList.Size = new System.Drawing.Size(158, 404);
+            this.memoryList.TabIndex = 1;
+            this.memoryList.SelectedIndexChanged += new System.EventHandler(this.memoryList_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -407,11 +425,71 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "Memory";
             // 
+            // MemoryClear
+            // 
+            this.MemoryClear.Location = new System.Drawing.Point(9, 502);
+            this.MemoryClear.Margin = new System.Windows.Forms.Padding(2);
+            this.MemoryClear.Name = "MemoryClear";
+            this.MemoryClear.Size = new System.Drawing.Size(75, 61);
+            this.MemoryClear.TabIndex = 30;
+            this.MemoryClear.Text = "MC";
+            this.MemoryClear.UseVisualStyleBackColor = true;
+            this.MemoryClear.Click += new System.EventHandler(this.MemoryClear_Click);
+            // 
+            // MemoryRecall
+            // 
+            this.MemoryRecall.Location = new System.Drawing.Point(88, 502);
+            this.MemoryRecall.Margin = new System.Windows.Forms.Padding(2);
+            this.MemoryRecall.Name = "MemoryRecall";
+            this.MemoryRecall.Size = new System.Drawing.Size(75, 61);
+            this.MemoryRecall.TabIndex = 31;
+            this.MemoryRecall.Text = "MR";
+            this.MemoryRecall.UseVisualStyleBackColor = true;
+            this.MemoryRecall.Click += new System.EventHandler(this.MemoryRecall_Click);
+            // 
+            // MemoryAdd
+            // 
+            this.MemoryAdd.Location = new System.Drawing.Point(168, 502);
+            this.MemoryAdd.Margin = new System.Windows.Forms.Padding(2);
+            this.MemoryAdd.Name = "MemoryAdd";
+            this.MemoryAdd.Size = new System.Drawing.Size(75, 61);
+            this.MemoryAdd.TabIndex = 32;
+            this.MemoryAdd.Text = "M+";
+            this.MemoryAdd.UseVisualStyleBackColor = true;
+            this.MemoryAdd.Click += new System.EventHandler(this.MemoryAdd_Click);
+            // 
+            // MemorySub
+            // 
+            this.MemorySub.Location = new System.Drawing.Point(248, 502);
+            this.MemorySub.Margin = new System.Windows.Forms.Padding(2);
+            this.MemorySub.Name = "MemorySub";
+            this.MemorySub.Size = new System.Drawing.Size(75, 61);
+            this.MemorySub.TabIndex = 33;
+            this.MemorySub.Text = "M-";
+            this.MemorySub.UseVisualStyleBackColor = true;
+            this.MemorySub.Click += new System.EventHandler(this.MemorySub_Click);
+            // 
+            // MemorySave
+            // 
+            this.MemorySave.Location = new System.Drawing.Point(331, 502);
+            this.MemorySave.Margin = new System.Windows.Forms.Padding(2);
+            this.MemorySave.Name = "MemorySave";
+            this.MemorySave.Size = new System.Drawing.Size(75, 61);
+            this.MemorySave.TabIndex = 34;
+            this.MemorySave.Text = "MS";
+            this.MemorySave.UseVisualStyleBackColor = true;
+            this.MemorySave.Click += new System.EventHandler(this.MemorySave_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(758, 507);
+            this.ClientSize = new System.Drawing.Size(758, 565);
+            this.Controls.Add(this.MemorySave);
+            this.Controls.Add(this.MemorySub);
+            this.Controls.Add(this.MemoryAdd);
+            this.Controls.Add(this.MemoryRecall);
+            this.Controls.Add(this.MemoryClear);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -450,6 +528,18 @@
             this.ResumeLayout(false);
         }
 
+        private System.Windows.Forms.ListBox memoryList;
+
+        private System.Windows.Forms.Button button20;
+
+        private System.Windows.Forms.Button MemorySave;
+
+        private System.Windows.Forms.Button MemoryAdd;
+
+        private System.Windows.Forms.Button MemorySub;
+
+        private System.Windows.Forms.Button MemoryRecall;
+
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label3;
 
@@ -482,7 +572,7 @@
         private System.Windows.Forms.Button button17;
         private System.Windows.Forms.Button button18;
         private System.Windows.Forms.Button button19;
-        private System.Windows.Forms.Button button20;
+        private System.Windows.Forms.Button MemoryClear;
         private System.Windows.Forms.Button button21;
         private System.Windows.Forms.Button button22;
         private System.Windows.Forms.Button button23;

@@ -19,6 +19,7 @@ namespace simplecalc
         {
             InitializeComponent();
             loadHistory();
+            loadMemory();
         }
         
         private void loadHistory()
@@ -48,8 +49,36 @@ namespace simplecalc
                 kapcsolat.Close();
             }
         }
+        
+        private void loadMemory()
+        {
+            memoryList.Items.Clear();
+            
+            kapcsolat = new MySqlConnection(connStr);
+            try
+            {
+                kapcsolat.Open();
+                string query = "SELECT memory FROM memory";
+                MySqlCommand parancs = new MySqlCommand(query, kapcsolat);
+                MySqlDataAdapter adapter = new MySqlDataAdapter(parancs);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                
+                foreach (DataRow sor in dt.Rows)
+                {
+                    memoryList.Items.Add(sor["memory"].ToString());
+                }
+            }
+            catch (Exception a)
+            {
+                MessageBox.Show("Hiba: " + a.Message);
+            }
+            finally {
+                kapcsolat.Close();
+            }
+        }
 
-        float currentNumber = 0;
+        double currentNumber = 0;
         string curNumStr = "";
         float firstNum = 0;
 
@@ -63,7 +92,7 @@ namespace simplecalc
         private void Form1_Load(object sender, EventArgs e)
         {
             label1.Text = "";
-            
+
         }
 
         //Button 0
@@ -244,11 +273,16 @@ namespace simplecalc
             isSub = false;
             isMul = false;
 
-            firstNum = float.Parse(curNumStr);
-            label1.Text = firstNum.ToString() + " + ";
-            curNumStr = "";
-            currentNumber = 0;
-            mainNumber.Text = "0";
+            if (curNumStr.Length > 0)
+            {
+                firstNum = float.Parse(curNumStr);
+                            label1.Text = firstNum.ToString() + " + ";
+                            curNumStr = "";
+                            currentNumber = 0;
+                            mainNumber.Text = "0";
+            }
+
+            
 
 
         }
@@ -261,11 +295,14 @@ namespace simplecalc
             isDiv = false;
             isMul = false;
 
-            firstNum = float.Parse(curNumStr);
-            label1.Text = firstNum.ToString() + " - ";
-            curNumStr = "";
-            currentNumber = 0;
-            mainNumber.Text = "0";
+            if (curNumStr.Length > 0)
+            {
+                firstNum = float.Parse(curNumStr);
+                label1.Text = firstNum.ToString() + " - ";
+                curNumStr = "";
+                currentNumber = 0;
+                mainNumber.Text = "0";
+            }
 
         }
 
@@ -277,12 +314,14 @@ namespace simplecalc
             isDiv = false;
             isSub = false;
 
-            firstNum = float.Parse(curNumStr);
-            label1.Text = firstNum.ToString() + " * ";
-            curNumStr = "";
-            currentNumber = 0;
-            mainNumber.Text = "0";
-
+            if (curNumStr.Length > 0)
+            {
+                firstNum = float.Parse(curNumStr);
+                label1.Text = firstNum.ToString() + " * ";
+                curNumStr = "";
+                currentNumber = 0;
+                mainNumber.Text = "0";
+            }
         }
 
         //Button /
@@ -293,65 +332,75 @@ namespace simplecalc
             isSub = false;
             isMul = false;
 
-            firstNum = float.Parse(curNumStr);
-            label1.Text = firstNum.ToString() + " / ";
-            curNumStr = "";
-            currentNumber = 0;
-            mainNumber.Text = "0";
+            if (curNumStr.Length > 0)
+            {
+                firstNum = float.Parse(curNumStr);
+                label1.Text = firstNum.ToString() + " / ";
+                curNumStr = "";
+                currentNumber = 0;
+                mainNumber.Text = "0";
+            }
         }
 
         //Button Equals
         private void button21_Click(object sender, EventArgs e)
         {
-            string currOperator = "";
-            
-            if (isAdd)
+            if (curNumStr.Length > 0)
             {
-                label1.Text = firstNum.ToString() + " + " + curNumStr + " =";
-                mainNumber.Text = (firstNum + float.Parse(curNumStr)).ToString();
-                currOperator = "+";
-            }
-            else if (isSub) {
-                label1.Text = firstNum.ToString() + " - " + curNumStr + " =";
-                mainNumber.Text = (firstNum - float.Parse(curNumStr)).ToString();
-                currOperator = "-";
-            }
-            else if (isDiv) {
-                label1.Text = firstNum.ToString() + " / " + curNumStr + " =";
-                mainNumber.Text = (firstNum / float.Parse(curNumStr)).ToString();
-                currOperator = "/";
-            }
-            else if (isMul) {
-                label1.Text = firstNum.ToString() + " * " + curNumStr + " =";
-                mainNumber.Text = (firstNum * float.Parse(curNumStr)).ToString();
-                currOperator = "*";
-            }
+                string currOperator = "";
 
-            recentList.Items.Add(label1.Text + " " + mainNumber.Text);
-            string operation = label1.Text + mainNumber.Text;
-            
-            kapcsolat = new MySqlConnection(connStr);
-            try
-            {
-                kapcsolat.Open();
-                
-                string query = "INSERT INTO history (fullOperation, firstNum, secondNum, operator) VALUES (@operation, @firstNum, @secondNum, @operator)";
-                MySqlCommand parancs = new MySqlCommand(query, kapcsolat);
-                parancs.Parameters.AddWithValue("@operation", operation);
-                parancs.Parameters.AddWithValue("@firstNum", firstNum);
-                parancs.Parameters.AddWithValue("@secondNum", currentNumber);
-                parancs.Parameters.AddWithValue("@operator", currOperator);
+                if (isAdd)
+                {
+                    label1.Text = firstNum.ToString() + " + " + curNumStr + " =";
+                    mainNumber.Text = (firstNum + float.Parse(curNumStr)).ToString();
+                    currOperator = "+";
+                }
+                else if (isSub)
+                {
+                    label1.Text = firstNum.ToString() + " - " + curNumStr + " =";
+                    mainNumber.Text = (firstNum - float.Parse(curNumStr)).ToString();
+                    currOperator = "-";
+                }
+                else if (isDiv)
+                {
+                    label1.Text = firstNum.ToString() + " / " + curNumStr + " =";
+                    mainNumber.Text = (firstNum / float.Parse(curNumStr)).ToString();
+                    currOperator = "/";
+                }
+                else if (isMul)
+                {
+                    label1.Text = firstNum.ToString() + " * " + curNumStr + " =";
+                    mainNumber.Text = (firstNum * float.Parse(curNumStr)).ToString();
+                    currOperator = "*";
+                }
 
-                parancs.ExecuteNonQuery();
+                recentList.Items.Add(label1.Text + " " + mainNumber.Text);
+                string operation = label1.Text + mainNumber.Text;
+
+                kapcsolat = new MySqlConnection(connStr);
+                try
+                {
+                    kapcsolat.Open();
+
+                    string query =
+                        "INSERT INTO history (fullOperation, firstNum, secondNum, operator) VALUES (@operation, @firstNum, @secondNum, @operator)";
+                    MySqlCommand parancs = new MySqlCommand(query, kapcsolat);
+                    parancs.Parameters.AddWithValue("@operation", operation);
+                    parancs.Parameters.AddWithValue("@firstNum", firstNum);
+                    parancs.Parameters.AddWithValue("@secondNum", currentNumber);
+                    parancs.Parameters.AddWithValue("@operator", currOperator);
+
+                    parancs.ExecuteNonQuery();
+                }
+                catch (Exception a)
+                {
+                    MessageBox.Show("Hiba: " + a.Message);
+                }
+                finally
+                {
+                    kapcsolat.Close();
+                }
             }
-            catch (Exception a)
-            {
-                MessageBox.Show("Hiba: " + a.Message);
-            }
-            finally {
-                kapcsolat.Close();
-            }
-            
         }
 
         //Clear Entry
@@ -379,10 +428,13 @@ namespace simplecalc
         //Button +/-
         private void button24_Click(object sender, EventArgs e)
         {
-            if (float.Parse(curNumStr) > 0 || float.Parse(curNumStr) < 0)
+            if (curNumStr.Length > 0)
             {
-                curNumStr = (float.Parse(curNumStr) * -1).ToString();
-                mainNumber.Text = curNumStr;
+                if (float.Parse(curNumStr) > 0 || float.Parse(curNumStr) < 0)
+                {
+                    curNumStr = (float.Parse(curNumStr) * -1).ToString();
+                    mainNumber.Text = curNumStr;
+                }
             }
         }
 
@@ -406,39 +458,42 @@ namespace simplecalc
         //1/x
         private void button8_Click(object sender, EventArgs e)
         {
-            label1.Text = "1 / (" + curNumStr + ") =";
-            curNumStr = (1/(float.Parse(curNumStr))).ToString();
-            mainNumber.Text = curNumStr;
+            if (curNumStr.Length > 0)
+            {
+                label1.Text = "1 / (" + curNumStr + ") =";
+                curNumStr = (1 / (float.Parse(curNumStr))).ToString();
+                mainNumber.Text = curNumStr;
+            }
         }
 
         //Square
         private void button7_Click(object sender, EventArgs e)
         {
-            label1.Text = "sqr( " + curNumStr + " ) =";
-            curNumStr = ( (float.Parse(curNumStr))*(float.Parse(curNumStr)) ).ToString();
-            mainNumber.Text = curNumStr;
+            if (curNumStr.Length > 0)
+            {
+                label1.Text = "sqr( " + curNumStr + " ) =";
+                curNumStr = ((float.Parse(curNumStr)) * (float.Parse(curNumStr))).ToString();
+                mainNumber.Text = curNumStr;
+            }
         }
 
         //Square Root
         private void button6_Click(object sender, EventArgs e)
         {
-            label1.Text = "sqrt( " + curNumStr + " ) =";
-            if (float.Parse(curNumStr) > 0 || !(curNumStr == ""))
+            if (curNumStr.Length > 0)
             {
-                curNumStr = (Math.Sqrt(float.Parse(curNumStr))).ToString();
-                mainNumber.Text = curNumStr;
+                label1.Text = "sqrt( " + curNumStr + " ) =";
+                if (float.Parse(curNumStr) > 0 || !(curNumStr == ""))
+                {
+                    curNumStr = (Math.Sqrt(float.Parse(curNumStr))).ToString();
+                    mainNumber.Text = curNumStr;
+                }
+                else
+                {
+                    mainNumber.Text = "Invalid Input";
+                }
             }
 
-            //gotta fix this, crash when 0
-            else if (curNumStr == "") {
-                mainNumber.Text = "0";
-            }
-            else
-            {
-                mainNumber.Text = "Invalid Input";
-            }
-            
-            
         }
 
         //Percentage
@@ -481,7 +536,7 @@ namespace simplecalc
             {
                 kapcsolat.Open();
                 
-                string query = "DELETE FROM history WHERE fullOperation=@fullOperation";
+                string query = "DELETE FROM history WHERE fullOperation=@fullOperation LIMIT 1";
                 MySqlCommand parancs = new MySqlCommand(query, kapcsolat);
                 parancs.Parameters.AddWithValue("@fullOperation", recentList.SelectedItem.ToString());
 
@@ -498,6 +553,103 @@ namespace simplecalc
             finally {
                 kapcsolat.Close();
                 
+            }
+        }
+
+        private double memory = 0;
+        private void MemorySave_Click(object sender, EventArgs e)
+        {
+            memory = currentNumber; 
+            memoryList.Items.Add(currentNumber);
+            
+            kapcsolat = new MySqlConnection(connStr);
+            try
+            {
+                kapcsolat.Open();
+                
+                string query = "INSERT INTO memory (memory) VALUES (@memory)";
+                MySqlCommand parancs = new MySqlCommand(query, kapcsolat);
+                parancs.Parameters.AddWithValue("@memory", memory);
+
+                parancs.ExecuteNonQuery();
+                
+                
+            }
+            catch (Exception a)
+            {
+                MessageBox.Show("Hiba: " + a.Message);
+            }
+            finally {
+                kapcsolat.Close();
+            }
+        }
+        
+        private void MemoryClear_Click(object sender, EventArgs e)
+        {
+            if (memoryList.SelectedItems.Count == 1)
+            {
+                kapcsolat = new MySqlConnection(connStr);
+                try
+                {
+                    kapcsolat.Open();
+                
+                    string query = "DELETE FROM memory WHERE memory=@memory LIMIT 1";
+                    MySqlCommand parancs = new MySqlCommand(query, kapcsolat);
+                    parancs.Parameters.AddWithValue("@memory", memoryList.SelectedItem.ToString());
+
+                    parancs.ExecuteNonQuery();
+                
+                    loadMemory();
+                
+                }
+                catch (Exception a)
+                {
+                    MessageBox.Show("Hiba: " + a.Message);
+                }
+                finally {
+                    kapcsolat.Close();
+                
+                }
+
+            }
+            
+            
+        }
+
+        private void MemorySub_Click(object sender, EventArgs e)
+        {
+            if (memoryList.SelectedItems.Count == 1)
+            {
+                memory -= currentNumber;
+                memoryList.Items[memoryList.SelectedIndex] = memory;
+            }
+        }
+        
+        private void MemoryAdd_Click(object sender, EventArgs e)
+        {
+            if (memoryList.SelectedItems.Count == 1)
+            {
+                memory += currentNumber;
+                memoryList.Items[memoryList.SelectedIndex] = memory;
+            }
+
+            
+        }
+
+        private void MemoryRecall_Click(object sender, EventArgs e)
+        {
+            mainNumber.Text = memory.ToString();
+        }
+
+
+        private void memoryList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (memoryList.SelectedItems.Count == 1)
+            {
+                memory = double.Parse(memoryList.SelectedItem.ToString());
+                currentNumber = memory;
+                mainNumber.Text = currentNumber.ToString();
+                curNumStr = mainNumber.Text;
             }
         }
     }
