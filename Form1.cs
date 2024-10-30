@@ -231,6 +231,7 @@ namespace simplecalc
                 curNumStr = curNumStr + "9";
                 currentNumber = float.Parse(curNumStr);
                 mainNumber.Text = curNumStr;
+                
             }
         }
 
